@@ -1,0 +1,10 @@
+#export EC2_KEY=nameofyourkeyfile
+#export EC2_PEM_FILE=pathtoyourkeyfile
+export AMI_IMAGE=ami-d0833da3
+export EC2_REGION=eu-west-1
+export EC2_ZONE=eu-west-1c
+export SPARK_WORKER_INSTANCES=5
+#export EC2_INSTANCE_TYPE=g2.2xlarge
+export EC2_INSTANCE_TYPE=g2.8xlarge
+export EC2_MAX_PRICE=1.5
+export SPARK_CLUSTER_NAME=sparknet
