@@ -1,5 +1,2 @@
-talk:
-	cp -R reveal.js ${name}
-
-update:
-	git submodule foreach git pull
+default:
+	cp -R sample ${talk}
