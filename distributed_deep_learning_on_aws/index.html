@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Distributed Deep Learning with Spark on AWS</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section>
+					<h1>Distributed Deep Learning</h1>
+					<h3>Spark on AWS</h3>
+					<p>
+						<small>Presented by Vincent Van Steenbergen - <a href="http://twitter.com/nsteenv">@nsteenv</a></small>
+					</p>
+				</section>
+
+				<section>
+					<h2>whoami</h2>
+					<h3>Vincent Van Steenbergen</h3>
+					<p class="fragment">Founder @ Abstract Minds</p>
+					<p class="fragment">Playing with Scala, Akka &amp; Spark +/- 3 years</p>
+					<p class="fragment">Deeply interested in Artificial Intelligence and Data Analysis</p>
+				</section>
+
+				<section>
+					<h2>Disclaimer</h2>
+					<img data-src="img/disclaimer.jpg" alt="Disclaimer">
+				</section>
+
+				<section>
+
+					<section>
+						<h2>Deep Learning</h2>
+					</section>
+
+					<!--
+					<section>
+						<h2>Machine Learning</h2>
+						<p class="fragment">Origins in the field of Artificial Intelligence</p>
+						<p class="fragment">Creating a computer that could do any work a human can do (maybe even better)</p>
+					</section>
+
+					<section>
+						<h2>Modelling the human brain</h2>
+						<p class="fragment">base functional unit: neurons</p>
+						<p class="fragment">each one more or less excited regarding a given input</p>
+					</section>
+
+					<section>
+						<img data-src="img/neurons.jpg" alt="Neurons">
+					</section>
+
+					<section>
+						<h2>Simple neuron</h2>
+						<img data-src="img/simple-neuron.png" alt="Simple Neuron">
+						<p class="fragment">inputs: x1,x2,x3 (ex: images, pixels...)</p>
+						<p class="fragment">output: hypothesis (ex: is it a cat?)</p>
+						<p class="fragment">activation: sum (weights * x + b)</p>
+					</section>
+
+					<section>
+						<h2>Neural network</h2>
+						<img data-src="img/neural-network.png" alt="Neural Network">
+						<p class="fragment">multiple layers: input, hidden, output</p>
+						<p class="fragment">feedforward network (no loop)</p>
+					</section>
+
+					<section>
+						<h2>Convolutional Neural Networks</h2>
+						<img data-src="img/convnet.png" alt="Convolutional Neural Networks">
+						<p class="fragment">particularly adapted for image classification / recognition</p>
+					</section>
+
+					<section>
+							<h2>Example: Face recognition</h2>
+							<img data-src="img/deep-neural-network.png" alt="Deep Neural Network">
+							<p class="fragment">each layer focused on a specific part</p>
+							<p class="fragment">(first line, then shape, then face, then classification)</p>
+					</section>
+
+					<section>
+						<h2>Applications</h2>
+						<p class="fragment">Image recognition</p>
+						<p class="fragment">Voice &amp; Audio recognition</p>
+						<p class="fragment">Text recognition, translation</p>
+						<p class="fragment">Learning to play games (DeepMind, AlphaGo)</p>
+					</section>
+					-->
+
+					<section>
+						<h2>Applications</h2>
+					</section>
+
+					<section>
+						<h2>Image analysis</h2>
+					</section>
+
+					<section>
+						<h2>Audio analysis</h2>
+					</section>
+
+					<section>
+						<h2>Text analysis</h2>
+					</section>
+
+					<section>
+						<h2>Games</h2>
+					</section>
+
+					<section>
+						<h2>Training a model requires:</h2>
+						<p class="fragment">a lot of time</p>
+						<p class="fragment">even more computing power</p>
+						<p class="fragment">Ex: AlphaGo - 1202 CPU and 176 GPU</p>
+					</section>
+
+					<section>
+						<h2>So how can I analyse big data?</h2>
+						<p class="fragment">for a decent cost?</p>
+						<p class="fragment">within a short timespan?</p>
+						<p class="fragment"><b>possible on a single machine, but very very long</b></p>
+						<p class="fragment"><b>solution:</b> distribute training over a cluster</p>
+					</section>
+
+				</section>
+
+				<section>
+
+					<section>
+						<h2>Who does that?</h2>
+					</section>
+
+						<section>
+												<h2>Amazon Web Services (EC2)</h2>
+												<p class="fragment">GPU instances (g2.2xlarge, g2.8xlarge)</p>
+												<p class="fragment">Spot instances (on demand, generally 2-3 times cheaper than regular instances)</p>
+											</section>
+
+											<section>
+												<h2>g2.8xlarge configuration</h2>
+												<p class="fragment">Four NVIDIA GRID GPUs, each with 1,536 CUDA cores and 4 GB of video memory</p>
+												<p class="fragment">32 vCPUs</p>
+												<p class="fragment">60 GiB of memory</p>
+												<p class="fragment">240 GB (2 x 120) of SSD storage</p>
+												<p class="fragment"><b>Average price:</b> $1.00 per hour</p>
+											</section>
+
+											<section>
+												<h2>Not bad...</h2>
+											</section>
+
+
+						<section>
+							<h2>Deep Learning Frameworks</h2>
+							<p class="fragment">Caffe (Berkeley)</p>
+							<p class="fragment">TensorFlow (Google)</p>
+							<p class="fragment">Torch</p>
+							<p class="fragment">Leaf (Rust)</p>
+						</section>
+
+						<section>
+							<h2>Benchmarks</h2>
+							<img data-src="img/benchmark.png" alt="Benchmarks">
+							<p>Training time per feature (backward/forward propagation)</p>
+						</section>
+
+						<section>
+							<h2>How it works</h2>
+							<p class="fragment">Computation runs on a spark cluster</p>
+							<p class="fragment">Master node holds the images &amp; model</p>
+							<p class="fragment">Slaves run Caffe to do the actual computation</p>
+						</section>
+
+						<section>
+							<h2>Schema</h2>
+							<img data-src="img/sparknet.png" alt="Sparknet">
+						</section>
+
+						<section>
+							<h2>How to run it</h2>
+							<p class="fragment">Can run on local machine, cluster or EC2</p>
+							<p class="fragment">Ready made image available for EC2</p>
+						</section>
+
+						<section>
+							<h2>MNIST Dataset</h2>
+							<img data-src="img/mnistdigits.gif" alt="MNIST Dataset">
+							<p>Handwriten digits dataset</p>
+						</section>
+
+						<section>
+							<h2>What it does</h2>
+							<img data-src="img/mnist-convnet.jpg" alt="Neurons">
+						</section>
+
+						<section>
+							<h2>Demo time!</h2>
+						</section>
+
+						<section>
+							<h2>Warning!</h2>
+							<p class="fragments">Remember to destroy the cluster after use!</p>
+						</section>
+
+				</section>
+
+				<section>
+					<h2>Thank you!</h2>
+					<p>Any questions?</p>
+					<p>My email: v.vansteenbergen@gmail.com</p>
+				</section>
+
+				<section>
+					<h2>Ressources</h2>
+					<p><a href="ec2/launch_spark_ec2.sh">Sample launch scripts</p>
+					<p><a href="http://ufldl.stanford.edu/wiki/index.php/Neural_Networks">Neural Networks</a></p>
+					<p><a href="http://ufldl.stanford.edu/tutorial/">Deep Learning</a></p>
+					<p><a href="https://devblogs.nvidia.com/parallelforall/accelerate-machine-learning-cudnn-deep-neural-network-library/">cuDNN</a></p>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
