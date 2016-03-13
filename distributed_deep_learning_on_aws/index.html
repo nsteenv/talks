@@ -52,20 +52,21 @@
 				<section>
 					<h2>whoami</h2>
 					<h3>Vincent Van Steenbergen</h3>
-					<p class="fragment">Founder @ Abstract Minds</p>
+					<p class="fragment">Data Engineer @ Abstract Minds</p>
 					<p class="fragment">Playing with Scala, Akka &amp; Spark +/- 3 years</p>
 					<p class="fragment">Deeply interested in Artificial Intelligence and Data Analysis</p>
 				</section>
 
 				<section>
 					<h2>Disclaimer</h2>
-					<img data-src="img/disclaimer.jpg" alt="Disclaimer">
+					<img data-src="img/geek.jpg" alt="Disclaimer">
 				</section>
 
 				<section>
 
 					<section>
 						<h2>Deep Learning</h2>
+						<p class="fragment">convolutional neural networks</p>
 					</section>
 
 					<!--
@@ -128,18 +129,17 @@
 
 					<section>
 						<h2>Image analysis</h2>
+						<img data-src="img/dl.jpg" alt="DL cat">
 					</section>
 
 					<section>
-						<h2>Audio analysis</h2>
-					</section>
-
-					<section>
-						<h2>Text analysis</h2>
+						<h2>Image generation</h2>
+						<img data-src="img/dl-vg.png" alt="DL cat">
 					</section>
 
 					<section>
 						<h2>Games</h2>
+						<img data-src="img/alphago.jpg" alt="DL cat">
 					</section>
 
 					<section>
@@ -150,10 +150,11 @@
 					</section>
 
 					<section>
-						<h2>So how can I analyse big data?</h2>
+						<h2>So how can I do that...</h2>
+						<p class="fragment">from my laptop?</p>
 						<p class="fragment">for a decent cost?</p>
 						<p class="fragment">within a short timespan?</p>
-						<p class="fragment"><b>possible on a single machine, but very very long</b></p>
+						<p class="fragment"><b>possible on a laptop but very slow</b></p>
 						<p class="fragment"><b>solution:</b> distribute training over a cluster</p>
 					</section>
 
@@ -162,7 +163,17 @@
 				<section>
 
 					<section>
-						<h2>Who does that?</h2>
+						<h2>Apache Spark</h2>
+						<img data-src="img/spark.png" alt="Spark">
+						<p class="fragment">Scala/Python framework for big data analysis</p>
+						<p class="fragment">Like Hadoop but faster</p>
+					</section>
+
+					<section>
+						<h2>Advantages</h2>
+						<p class="fragment">Able to handle potentially Tb of data in streaming</p>
+						<p class="fragment">Parallelise operations on a big cluster of machines</p>
+						<p class="fragment">Improves accuracy of results</p>
 					</section>
 
 						<section>
@@ -187,54 +198,54 @@
 
 						<section>
 							<h2>Deep Learning Frameworks</h2>
-							<p class="fragment">Caffe (Berkeley)</p>
 							<p class="fragment">TensorFlow (Google)</p>
-							<p class="fragment">Torch</p>
-							<p class="fragment">Leaf (Rust)</p>
+							<p class="fragment">Caffe (Berkeley)</p>
 						</section>
 
-						<section>
-							<h2>Benchmarks</h2>
-							<img data-src="img/benchmark.png" alt="Benchmarks">
-							<p>Training time per feature (backward/forward propagation)</p>
-						</section>
-
-						<section>
-							<h2>How it works</h2>
-							<p class="fragment">Computation runs on a spark cluster</p>
-							<p class="fragment">Master node holds the images &amp; model</p>
-							<p class="fragment">Slaves run Caffe to do the actual computation</p>
-						</section>
-
+<!--
 						<section>
 							<h2>Schema</h2>
-							<img data-src="img/sparknet.png" alt="Sparknet">
+							<img data-src="img/mllib.png" alt="Sparknet">
 						</section>
-
-						<section>
-							<h2>How to run it</h2>
-							<p class="fragment">Can run on local machine, cluster or EC2</p>
-							<p class="fragment">Ready made image available for EC2</p>
-						</section>
+-->
 
 						<section>
 							<h2>MNIST Dataset</h2>
-							<img data-src="img/mnistdigits.gif" alt="MNIST Dataset">
+							<img data-src="img/mnist.png" alt="MNIST Dataset">
 							<p>Handwriten digits dataset</p>
 						</section>
 
 						<section>
-							<h2>What it does</h2>
-							<img data-src="img/mnist-convnet.jpg" alt="Neurons">
+							<h2>Cross validation</h2>
+							<img data-src="img/crossvalidation.png" alt="Cross Validation">
 						</section>
 
 						<section>
-							<h2>Demo time!</h2>
+							<h2>Computation time</h2>
+							<img data-src="img/time.png" alt="Computation Time">
 						</section>
 
 						<section>
-							<h2>Warning!</h2>
-							<p class="fragments">Remember to destroy the cluster after use!</p>
+							<h2>Results</h2>
+							<p class="fragment">7x speedup compared to training the models one at a time on one machine</p>
+							<p class="fragment">best result with hyperparameter tuning has a 99.47% accuracy on the test set</p>
+							<p class="fragment">which is a 34% reduction of the test error.</p>
+						</section>
+
+						<section>
+							<h2>Image classification</h2>
+							<img data-src="img/coral.jpg" alt="Scuba Dive">
+						</section>
+
+						<section>
+							<h2>Results</h2>
+							<pre><code>
+('coral reef', 0.88503921),
+('scuba diver', 0.025853464),
+('brain coral', 0.0090828091),
+('snorkel', 0.0036010914),
+('promontory, headland, head, foreland', 0.0022605944)])
+							</code></pre>
 						</section>
 
 				</section>
