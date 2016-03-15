@@ -45,14 +45,13 @@
 					<h1>Distributed Deep Learning</h1>
 					<h3>Caffe on Spark on AWS</h3>
 					<p>
-						<small>Presented by Vincent Van Steenbergen - <a href="http://twitter.com/nsteenv">@nsteenv</a></small>
+						<small>Vincent Van Steenbergen - <a href="http://twitter.com/nsteenv">@nsteenv</a></small>
 					</p>
 				</section>
 
 				<section>
 					<h2>whoami</h2>
 					<h3>Vincent Van Steenbergen</h3>
-					<p class="fragment">Data Engineer @ Abstract Minds</p>
 					<p class="fragment">Playing with Scala, Akka &amp; Spark +/- 3 years</p>
 					<p class="fragment">Deeply interested in Artificial Intelligence and Data Analysis</p>
 				</section>
@@ -66,7 +65,7 @@
 
 					<section>
 						<h2>Deep Learning</h2>
-						<p class="fragment">convolutional neural networks</p>
+						<p class="fragment">aka. Convolutional Neural Networks (convNet)</p>
 					</section>
 
 					<!--
@@ -144,9 +143,9 @@
 
 					<section>
 						<h2>Training a model requires:</h2>
-						<p class="fragment">a lot of time</p>
-						<p class="fragment">even more computing power</p>
-						<p class="fragment">Ex: AlphaGo - 1202 CPU and 176 GPU</p>
+						<p class="fragment">1. a lot of time (usually weeks/months)</p>
+						<p class="fragment">2. a lot of computing power</p>
+						<p class="fragment">Ex: AlphaGo - 1202 CPU and 176 GPU - 6 weeks training</p>
 					</section>
 
 					<section>
@@ -154,8 +153,13 @@
 						<p class="fragment">from my laptop?</p>
 						<p class="fragment">for a decent cost?</p>
 						<p class="fragment">within a short timespan?</p>
-						<p class="fragment"><b>possible on a laptop but very slow</b></p>
-						<p class="fragment"><b>solution:</b> distribute training over a cluster</p>
+					</section>
+
+					<section>
+						<h2>Yes you can!</h2>
+						<img data-src="img/burning.jpg" alt="Burning laptop">
+						<p class="fragment">Technicaly possible on a (high end) laptop but very slow</p>
+						<p class="fragment"><b>Solution:</b> distribute training over a cluster</p>
 					</section>
 
 				</section>
@@ -165,15 +169,7 @@
 					<section>
 						<h2>Apache Spark</h2>
 						<img data-src="img/spark.png" alt="Spark">
-						<p class="fragment">Scala/Python framework for big data analysis</p>
-						<p class="fragment">Like Hadoop but faster</p>
-					</section>
-
-					<section>
-						<h2>Advantages</h2>
-						<p class="fragment">Able to handle potentially Tb of data in streaming</p>
-						<p class="fragment">Parallelise operations on a big cluster of machines</p>
-						<p class="fragment">Improves accuracy of results</p>
+						<p class="fragment">Pool ressources from all the spark slaves on the cluser</p>
 					</section>
 
 						<section>
@@ -191,61 +187,52 @@
 												<p class="fragment"><b>Average price:</b> $1.00 per hour</p>
 											</section>
 
-											<section>
-												<h2>Not bad...</h2>
-											</section>
-
 
 						<section>
 							<h2>Deep Learning Frameworks</h2>
 							<p class="fragment">TensorFlow (Google)</p>
 							<p class="fragment">Caffe (Berkeley)</p>
+							<p class="fragment">Torch (Facebook/Deepmind)</p>
 						</section>
 
-<!--
 						<section>
-							<h2>Schema</h2>
-							<img data-src="img/mllib.png" alt="Sparknet">
+							<h2>Caffe on Spark</h2>
+							<p class="fragment">Distribute Caffe on a Spark cluster</p>
+							<p class="fragment">Developed/maintained by Yahoo (Flickr)</p>
 						</section>
--->
 
 						<section>
-							<h2>MNIST Dataset</h2>
+							<h2>Advantages</h2>
+							<p class="fragment">Can run on an existing cluster along other Spark jobs</p>
+							<p class="fragment">Leverage existing Caffe models</p>
+							<p class="fragment">Use SQL, DataFrames, existing LMDB files</p>
+							<p class="fragment">Peer-to peer communication with Message passing</p>
+						</section>
+
+						<section>
+							<h2>Not bad...</h2>
+							<p class="fragment">... let's give it a go!</p>
+						</section>
+
+						<section>
+							<h2>MNIST</h2>
 							<img data-src="img/mnist.png" alt="MNIST Dataset">
-							<p>Handwriten digits dataset</p>
+							<p>Classifying handwritten digits</p>
 						</section>
 
-						<section>
-							<h2>Cross validation</h2>
-							<img data-src="img/crossvalidation.png" alt="Cross Validation">
-						</section>
 
 						<section>
-							<h2>Computation time</h2>
-							<img data-src="img/time.png" alt="Computation Time">
+								<img data-src="img/mnist3.png" alt="MNIST Features">
 						</section>
 
-						<section>
-							<h2>Results</h2>
-							<p class="fragment">7x speedup compared to training the models one at a time on one machine</p>
-							<p class="fragment">best result with hyperparameter tuning has a 99.47% accuracy on the test set</p>
-							<p class="fragment">which is a 34% reduction of the test error.</p>
-						</section>
 
 						<section>
-							<h2>Image classification</h2>
-							<img data-src="img/coral.jpg" alt="Scuba Dive">
+							<h2>Under the hood</h2>
+							<img data-src="img/mnist2.jpg" alt="MNIST Layers">
 						</section>
 
 						<section>
 							<h2>Results</h2>
-							<pre><code>
-('coral reef', 0.88503921),
-('scuba diver', 0.025853464),
-('brain coral', 0.0090828091),
-('snorkel', 0.0036010914),
-('promontory, headland, head, foreland', 0.0022605944)])
-							</code></pre>
 						</section>
 
 				</section>
@@ -258,10 +245,10 @@
 
 				<section>
 					<h2>Ressources</h2>
-					<p><a href="ec2/launch_spark_ec2.sh">Sample launch scripts</p>
-					<p><a href="http://ufldl.stanford.edu/wiki/index.php/Neural_Networks">Neural Networks</a></p>
-					<p><a href="http://ufldl.stanford.edu/tutorial/">Deep Learning</a></p>
-					<p><a href="https://devblogs.nvidia.com/parallelforall/accelerate-machine-learning-cudnn-deep-neural-network-library/">cuDNN</a></p>
+					<p><a href="ec2/launch_spark_ec2.sh">Sample launch scripts</a></p>
+					<p><a href="https://github.com/yahoo/CaffeOnSpark">Caffe on Spark</a></p>
+					<p><a href="http://yahoohadoop.tumblr.com/post/139916563586/caffeonspark-open-sourced-for-distributed-deep">Yahoo blog</a></p>
+					<p><a href="https://github.com/amplab/SparkNet">SparkNet</a></p>
 				</section>
 
 			</div>
